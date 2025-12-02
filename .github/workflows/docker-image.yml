@@ -26,12 +26,16 @@ jobs:
           docker build -t $IMAGE_NAME:latest .
           docker push $IMAGE_NAME:latest- 
        
-       - name: Deploy to NAS
+      - name: Deploy to NAS
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USER: ${{ secrets.NAS_USER }}
+          HOST: ${{ secrets.NAS_HOST }}
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.NAS_USER }}@${{ secrets.NAS_HOST }} "
-          cd /path/to/project &&
-          GT_TOKEN=${{ secrets.GT_TOKEN }} git pull https://x-access-token:${{ secrets.GT_TOKEN }}@github.com/${{ github.actor }}/mybio.git
-        "
+          ssh -o StrictHostKeyChecking=no $USER@$HOST "
+            cd /volume1/myproject &&
+            git pull https://x-access-token:$TOKEN@github.com/guimoneda/mywebsite.git
+          "
 
         
 
