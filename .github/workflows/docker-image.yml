@@ -25,6 +25,15 @@ jobs:
         run: |
           IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/mybio
           docker build -t $IMAGE_NAME:latest .
-          docker push $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:latest- 
+       
+       - name: Deploy to NAS
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.NAS_USER }}@${{ secrets.NAS_HOST }} "
+          cd /path/to/project &&
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} git pull https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.actor }}/mybio.git
+        "
+
+        
 
       
