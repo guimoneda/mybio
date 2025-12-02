@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,7 +18,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GT_TOKEN }}
 
       - name: Build Docker image
         run: |
@@ -31,7 +30,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.NAS_USER }}@${{ secrets.NAS_HOST }} "
           cd /path/to/project &&
-          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} git pull https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.actor }}/mybio.git
+          GT_TOKEN=${{ secrets.GT_TOKEN }} git pull https://x-access-token:${{ secrets.GT_TOKEN }}@github.com/${{ github.actor }}/mybio.git
         "
 
         
