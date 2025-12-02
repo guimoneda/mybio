@@ -28,7 +28,7 @@ jobs:
        
       - name: Deploy to NAS
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.GT_TOKEN }}
           USER: ${{ secrets.NAS_USER }}
           HOST: ${{ secrets.NAS_HOST }}
         run: |
